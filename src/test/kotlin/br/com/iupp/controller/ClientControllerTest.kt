@@ -1,4 +1,4 @@
-package br.com.iupp
+package br.com.iupp.controller
 
 import br.com.iupp.controller.ClientController
 import br.com.iupp.controller.dto.ClientRequest

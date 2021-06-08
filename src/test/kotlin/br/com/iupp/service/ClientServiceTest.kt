@@ -1,4 +1,4 @@
-package br.com.iupp
+package br.com.iupp.service
 
 import br.com.iupp.controller.dto.AddressRequest
 import br.com.iupp.controller.dto.ClientRequest
