@@ -1,6 +1,6 @@
 package br.com.iupp.controller.dto
 
-data class ClienteResponse (
+data class ClientResponse (
     val nome:String,
     val email:String,
         )

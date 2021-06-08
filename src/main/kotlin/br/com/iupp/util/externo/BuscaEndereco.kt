@@ -1,6 +1,6 @@
 package br.com.iupp.util.externo
 
-import br.com.iupp.controller.dto.EnderecoRequest
+import br.com.iupp.controller.dto.AddressRequest
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.client.annotation.Client
@@ -9,5 +9,5 @@ import io.micronaut.http.client.annotation.Client
 interface BuscaEndereco {
 
     @Get("/{cep}/json/")
-    fun buscaEndereceoPorCEP(@PathVariable cep:String): EnderecoRequest
+    fun buscaEndereceoPorCEP(@PathVariable cep:String): AddressRequest
 }

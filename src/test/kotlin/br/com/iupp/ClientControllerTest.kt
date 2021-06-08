@@ -1,10 +1,8 @@
 package br.com.iupp
 
-import br.com.iupp.model.Cliente
-import br.com.iupp.model.Endereco
-import br.com.iupp.repositoy.ClienteRepository
+import br.com.iupp.model.Address
+import br.com.iupp.repositoy.ClientRepository
 import io.micronaut.http.client.HttpClient
-import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.annotation.MockBean
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import org.junit.jupiter.api.Assertions
@@ -14,13 +12,13 @@ import org.mockito.Mockito
 import javax.inject.Inject
 
 @MicronautTest
-class ClienteControllerTest {
+class ClientControllerTest {
 
     @Inject
-    lateinit var clienteRepository: ClienteRepository
+    lateinit var clientRepository: ClientRepository
 
     @Inject
-    lateinit var cliente: Cliente
+    lateinit var client: br.com.iupp.model.Client
 
 
     @Inject
@@ -31,7 +29,7 @@ class ClienteControllerTest {
     @BeforeEach
     internal fun setup(){
 
-        val endereco: Endereco = Endereco(
+        val address: Address = Address(
             "59067610",
             "Maçaranduba",
             "",
@@ -39,14 +37,14 @@ class ClienteControllerTest {
             "Natal",
             "RN")
 
-        cliente = Cliente("Bia","bia@email.com","12345678900",endereco)
+        client = br.com.iupp.model.Client("Bia","bia@email.com","12345678900",address)
 
-        clienteRepository.save(cliente)
+        clientRepository.save(client)
     }
 
     @Test
     internal fun `verificando os dados salvos em banco`() {
-        val clienteEncontrado = clienteRepository.findById(1L).get()
+        val clienteEncontrado = clientRepository.findById(1L).get()
 
         Assertions.assertEquals("Bia", clienteEncontrado.nome)
         Assertions.assertEquals("bia@email.com", clienteEncontrado.email)
@@ -57,9 +55,9 @@ class ClienteControllerTest {
 //
     }
 
-    @MockBean(Cliente::class)
-    fun clienteMock(): Cliente {
-        return Mockito.mock(Cliente::class.java)
+    @MockBean(Client::class)
+    fun clienteMock(): br.com.iupp.model.Client {
+        return Mockito.mock(Client::class.java)
     }
 
 }

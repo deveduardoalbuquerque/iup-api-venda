@@ -1,11 +1,11 @@
 package br.com.iupp.controller.dto
 
-import br.com.iupp.model.Endereco
+import br.com.iupp.model.Address
 import io.micronaut.core.annotation.Introspected
 import javax.validation.constraints.NotBlank
 
 @Introspected
-data class EnderecoRequest (
+data class AddressRequest (
     @NotBlank
     val cep:String,
     val logradouro:String,
@@ -16,8 +16,8 @@ data class EnderecoRequest (
     val uf:String
         ){
 
-    fun toEndereco(): Endereco {
-        return Endereco(
+    fun toEndereco(): Address {
+        return Address(
             cep = this.cep,
             logradouro = this.logradouro,
             complemento = this.complemento,

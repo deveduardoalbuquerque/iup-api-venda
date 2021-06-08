@@ -1,14 +1,14 @@
 package br.com.iupp.controller.dto
 
-import br.com.iupp.model.Cliente
-import br.com.iupp.model.Endereco
+import br.com.iupp.model.Client
+import br.com.iupp.model.Address
 import io.micronaut.core.annotation.Introspected
 import org.hibernate.validator.constraints.br.CPF
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
 @Introspected
-data class ClienteRequest(
+data class ClientRequest(
     @NotBlank
     val nome:String,
     @NotBlank @Email
@@ -16,7 +16,7 @@ data class ClienteRequest(
     @NotBlank @CPF
     val cpf:String,
 ){
-    fun toCliente(endereco: Endereco): Cliente {
-        return Cliente(nome = nome, email = email,cpf=cpf,endereco = endereco)
+    fun toClient(address: Address): Client {
+        return Client(nome = nome, email = email,cpf=cpf,address = address)
     }
 }

@@ -6,7 +6,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 
 @Entity
-class Endereco(
+class Address(
     val cep:String,
     val logradouro:String,
     val complemento:String,
