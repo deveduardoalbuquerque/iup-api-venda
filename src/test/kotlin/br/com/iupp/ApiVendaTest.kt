@@ -10,3 +10,4 @@ class ApiVendaTest(private val application: EmbeddedApplication<*>): StringSpec(
         assert(application.isRunning)
     }
 })
+

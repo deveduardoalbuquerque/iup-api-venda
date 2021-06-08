@@ -1,63 +1,38 @@
 package br.com.iupp
 
-import br.com.iupp.model.Address
-import br.com.iupp.repositoy.ClientRepository
-import io.micronaut.http.client.HttpClient
-import io.micronaut.test.annotation.MockBean
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.mockito.Mockito
-import javax.inject.Inject
+import br.com.iupp.controller.ClientController
+import br.com.iupp.controller.dto.ClientRequest
+import br.com.iupp.controller.dto.ClientResponse
+import br.com.iupp.service.ClientService
+import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
+import io.micronaut.test.extensions.kotest.annotation.MicronautTest
+import io.mockk.every
+import io.mockk.mockk
+import java.util.*
+
 
 @MicronautTest
-class ClientControllerTest {
+class ClientControllerTest: AnnotationSpec() {
 
-    @Inject
-    lateinit var clientRepository: ClientRepository
+    val clientService = mockk<ClientService>(relaxed = true)
 
-    @Inject
-    lateinit var client: br.com.iupp.model.Client
+    val clientController: ClientController = ClientController(clientService)
 
-
-    @Inject
-    @Client("/")
-    lateinit var acesso:HttpClient
-
+    lateinit var clienteRequest: ClientRequest
+    lateinit var clienteResponse: ClientResponse
 
     @BeforeEach
-    internal fun setup(){
-
-        val address: Address = Address(
-            "59067610",
-            "Maçaranduba",
-            "",
-            "Pitibu",
-            "Natal",
-            "RN")
-
-        client = br.com.iupp.model.Client("Bia","bia@email.com","12345678900",address)
-
-        clientRepository.save(client)
+    fun setUp() {
+        clienteRequest = ClientRequest(nome = "Bia", "bia@email.com","12345679890")
+        clienteResponse = ClientResponse("Bia", "bia@email.com")
     }
 
     @Test
-    internal fun `verificando os dados salvos em banco`() {
-        val clienteEncontrado = clientRepository.findById(1L).get()
-
-        Assertions.assertEquals("Bia", clienteEncontrado.nome)
-        Assertions.assertEquals("bia@email.com", clienteEncontrado.email)
-        Assertions.assertEquals("12345678900", clienteEncontrado.cpf)
-
-//        Mockito.`when`(clienteRepository.save(cliente))
-//            .thenReturn(HttpResponse.ok(ClienteResponse))
-//
-    }
-
-    @MockBean(Client::class)
-    fun clienteMock(): br.com.iupp.model.Client {
-        return Mockito.mock(Client::class.java)
+    fun `should return sucess on insert method`() {
+        every { clientService.create(any(),any()) } answers { clienteResponse }
+        val result = clientController.cadastraUsuario(clienteRequest,"59067610").body()
+        result shouldBe clienteResponse
     }
 
 }
