@@ -1,7 +1,6 @@
 package br.com.iupp.domain.model
 
-import javax.persistence.Entity
-import javax.persistence.OneToOne
+import javax.persistence.*
 
 @Entity
 class Cliente(
@@ -11,5 +10,6 @@ class Cliente(
     @OneToOne
     val endereco:Endereco
 ) {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id:Long? = null
 }

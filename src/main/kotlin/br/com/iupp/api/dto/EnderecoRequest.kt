@@ -1,8 +1,10 @@
 package br.com.iupp.api.dto
 
 import br.com.iupp.domain.model.Endereco
+import io.micronaut.core.annotation.Introspected
 import javax.validation.constraints.NotBlank
 
+@Introspected
 data class EnderecoRequest (
     @NotBlank
     val cep:String,
