@@ -1,6 +1,6 @@
-package br.com.iupp.api.dto
+package br.com.iupp.controller.dto
 
-import br.com.iupp.domain.model.Endereco
+import br.com.iupp.model.Endereco
 import io.micronaut.core.annotation.Introspected
 import javax.validation.constraints.NotBlank
 
@@ -16,7 +16,7 @@ data class EnderecoRequest (
     val uf:String
         ){
 
-    fun toEndereco():Endereco{
+    fun toEndereco(): Endereco {
         return Endereco(
             cep = this.cep,
             logradouro = this.logradouro,

@@ -1,6 +1,4 @@
-package br.com.iupp.api.dto
-
-import br.com.iupp.domain.model.Cliente
+package br.com.iupp.controller.dto
 
 data class ClienteResponse (
     val nome:String,

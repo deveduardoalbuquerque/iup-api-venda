@@ -1,7 +1,7 @@
-package br.com.iupp.api.dto
+package br.com.iupp.controller.dto
 
-import br.com.iupp.domain.model.Cliente
-import br.com.iupp.domain.model.Endereco
+import br.com.iupp.model.Cliente
+import br.com.iupp.model.Endereco
 import io.micronaut.core.annotation.Introspected
 import org.hibernate.validator.constraints.br.CPF
 import javax.validation.constraints.Email

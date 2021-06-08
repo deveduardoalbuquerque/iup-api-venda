@@ -1,4 +1,4 @@
-package br.com.iupp.domain.model
+package br.com.iupp.model
 
 import javax.persistence.*
 
@@ -8,7 +8,7 @@ class Cliente(
     val email:String,
     val cpf:String,
     @OneToOne
-    val endereco:Endereco
+    val endereco: Endereco
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id:Long? = null

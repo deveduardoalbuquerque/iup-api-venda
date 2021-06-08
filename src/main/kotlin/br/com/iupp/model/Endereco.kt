@@ -1,4 +1,4 @@
-package br.com.iupp.domain.model
+package br.com.iupp.model
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
