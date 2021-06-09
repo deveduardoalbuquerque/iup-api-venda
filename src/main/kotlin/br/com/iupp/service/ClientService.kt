@@ -8,5 +8,6 @@ import javax.inject.Singleton
 interface ClientService {
 
     fun create(clientReques: ClientRequest, cep:String):ClientResponse
+    fun findById(id:Long):ClientResponse?
 
 }

@@ -8,6 +8,7 @@ import br.com.iupp.repositoy.ClientRepository
 import br.com.iupp.repositoy.AddressRepository
 import br.com.iupp.util.externo.BuscaEndereco
 import java.lang.RuntimeException
+import java.net.http.HttpResponse
 import javax.inject.Singleton
 
 @Singleton
@@ -27,5 +28,15 @@ class ClientServiceImp(val clientrepository: ClientRepository,
         }
 
         throw RuntimeException("Erro ao cadastrar Cliente")
+    }
+
+
+    override fun findById(id: Long): ClientResponse? {
+        val existsClient =  clientrepository.findById(id)
+        if(existsClient.isPresent){
+            val clientReturn:ClientResponse = ClientResponse(existsClient.get().nome,existsClient.get().email)
+            return clientReturn
+        }
+        return null
     }
 }

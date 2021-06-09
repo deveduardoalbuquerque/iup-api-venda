@@ -11,10 +11,12 @@ import br.com.iupp.service.ClientService
 import br.com.iupp.service.ClientServiceImp
 import br.com.iupp.util.externo.BuscaEndereco
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.fp.Option
 import io.kotest.matchers.shouldBe
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import io.mockk.every
 import io.mockk.mockk
+import java.util.*
 
 @MicronautTest
 class ClientServiceTest:AnnotationSpec() {
@@ -24,6 +26,8 @@ class ClientServiceTest:AnnotationSpec() {
     val buscaAddressByCEP:BuscaEndereco = mockk<BuscaEndereco>(relaxed = true)
 
     val clientService:ClientService = ClientServiceImp(clientRepository,addressRepository,buscaAddressByCEP)
+
+    val idCliente:Long = 1
 
     lateinit var clientRequest: ClientRequest
     lateinit var clientResponse:ClientResponse
@@ -40,11 +44,18 @@ class ClientServiceTest:AnnotationSpec() {
         client = Client("bob","bob@email.com","12345678900",address)
     }
     @Test
-    fun `should return sucess on create client`(){
+    fun `should return success on create client`(){
         every { buscaAddressByCEP.buscaEndereceoPorCEP(any()) } answers { addressRequest }
         every { addressRepository.save(any()) } answers {address}
         every { clientRepository.save(any()) } answers { client }
         var result = clientService.create( clientRequest,addressRequest.cep)
+        result shouldBe clientResponse
+    }
+
+    @Test
+    fun `should return success on find client by id`(){
+        every { clientRepository.findById(any()) } answers { Optional.of(client) }
+        var result = clientService.findById(idCliente)
         result shouldBe clientResponse
     }
 

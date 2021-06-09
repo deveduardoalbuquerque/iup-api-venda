@@ -19,6 +19,8 @@ class ClientControllerTest: AnnotationSpec() {
 
     val clientController: ClientController = ClientController(clientService)
 
+    val idClient:Long = 1
+
     lateinit var clienteRequest: ClientRequest
     lateinit var clienteResponse: ClientResponse
 
@@ -32,6 +34,12 @@ class ClientControllerTest: AnnotationSpec() {
     fun `should return sucess on insert method`() {
         every { clientService.create(any(),any()) } answers { clienteResponse }
         val result = clientController.cadastraUsuario(clienteRequest,"59067610").body()
+        result shouldBe clienteResponse
+    }
+
+    fun `should return a client when find by id`(){
+        every { clientService.findById(any()) } answers { clienteResponse}
+        val result = clientController.findClientById(idClient)
         result shouldBe clienteResponse
     }
 
